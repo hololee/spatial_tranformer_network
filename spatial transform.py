@@ -5,6 +5,7 @@ import torchvision
 import matplotlib.pyplot as plt
 
 import os
+import numpy as np
 
 os.environ["TORCH_HOME"] = "./data"
 
@@ -170,7 +171,6 @@ def visualize_stn():
 
         axarr[1].imshow(out_grid)
         axarr[1].set_title('Transformed Images')
-
 
 
 for epoch in range(1, 20 + 1):
