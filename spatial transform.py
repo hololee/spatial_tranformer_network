@@ -9,7 +9,7 @@ import numpy as np
 
 os.environ["TORCH_HOME"] = "./data"
 
-device_no = 1
+device_no = 2
 device = torch.device(device_no if torch.cuda.is_available() else "cpu")
 
 # Training dataset
@@ -121,18 +121,13 @@ def test():
 
         test_loss = nn.functional.nll_loss(output, target)
         t_test_loss += test_loss
-        print("test_loss : ", test_loss)
+        # print("test_loss : ", test_loss.item())
 
-        pred = output.max(1, keepdim=True)[1]
+        # pred = output.max(1, keepdim=True)[1]
         # print("predict val : ", pred)
 
-        avg_loss = t_test_loss / len(test_loader.dataset)
-        print("avg_loss : ", avg_loss)
-
-
-epoch = 5
-train(epoch)
-test()
+    avg_loss = t_test_loss / len(test_loader.dataset)
+    print("avg_loss : ", avg_loss.item())
 
 
 def convert_image_np(inp):
@@ -156,7 +151,7 @@ def visualize_stn():
         data = next(iter(test_loader))[0].to(device)
 
         input_tensor = data.cpu()
-        transformed_input_tensor = net.stn(data).cpu()
+        transformed_input_tensor = net.spatial_transformer(data).cpu()
 
         in_grid = convert_image_np(
             torchvision.utils.make_grid(input_tensor))
@@ -171,6 +166,7 @@ def visualize_stn():
 
         axarr[1].imshow(out_grid)
         axarr[1].set_title('Transformed Images')
+        plt.show()
 
 
 for epoch in range(1, 20 + 1):
