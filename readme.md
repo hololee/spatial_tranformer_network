@@ -73,4 +73,4 @@ Process finished with exit code 0
 ~~~
   
   
-![output result]()
+![output result](https://github.com/hololee/spatial_tranformer_network/blob/master/MNIST/output1.png?raw=true)
